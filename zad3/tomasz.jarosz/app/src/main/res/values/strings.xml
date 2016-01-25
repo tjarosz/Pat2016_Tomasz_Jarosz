@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">tomasz.jarosz</string>
+    <string name="titleLineText">title</string>
+    <string name="descriptionLineText">Description</string>
+    <string name="imageDescription">image</string>
+    <string name="loginText">Email: </string>
+    <string name="passText">Password: </string>
+    <string name="btnLogInText">Login</string>
+    <string name="btnLogOutText">Wyloguj</string>
+</resources>
