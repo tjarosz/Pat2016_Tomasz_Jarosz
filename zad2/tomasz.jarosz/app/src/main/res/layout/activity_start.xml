@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.tomek.tomaszjarosz.MainActivity">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:orientation="vertical"
+        style="@style/linearLayout">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnLogOutText"
+            android:id="@+id/logOutButton"
+            android:onClick="onLogOutButtonClick" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        style="@style/linearLayout">
+
+        <Button
+            android:id="@+id/button1"
+            android:text="@string/btnText1"
+            android:background="@color/red"
+            android:onClick="onBtn1Click"
+            style="@style/button"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:text="@string/btnText2"
+            android:background="@color/blue"
+            android:onClick="onBtn2Click"
+            style="@style/button"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:text="@string/btnText3"
+            android:background="@color/green"
+            android:onClick="onBtn3Click"
+            style="@style/button"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        style="@style/linearLayout">
+
+        <Button
+            android:id="@+id/button4"
+            android:text="@string/btnText4"
+            android:background="@color/orange"
+            android:onClick="onBtn4Click"
+            style="@style/button"/>
+
+        <Button
+            android:id="@+id/button5"
+            android:text="@string/btnText5"
+            android:background="@color/purple"
+            android:onClick="onBtn5Click"
+            style="@style/button"/>
+
+        <Button
+            android:id="@+id/button6"
+            android:text="@string/btnText6"
+            android:background="@color/pink"
+            android:onClick="onBtn6Click"
+            style="@style/button"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        style="@style/linearLayout">
+
+        <Button
+            android:id="@+id/button7"
+            android:text="@string/btnText7"
+            android:background="@color/yellow"
+            android:onClick="onBtn7Click"
+            style="@style/button"/>
+
+        <Button
+            android:id="@+id/button8"
+            android:text="@string/btnText8"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:onClick="onBtn8Click"
+            style="@style/button"/>
+
+        <Button
+            android:id="@+id/button9"
+            android:text="@string/btnText9"
+            android:background="@color/white"
+            android:onClick="onBtn9Click"
+            style="@style/button"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:orientation="vertical"
+        style="@style/linearLayout">
+    </LinearLayout>
+</LinearLayout>
