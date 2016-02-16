@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="tj">
+        <createTable tableName="movies">
+            <column name="id_movie" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="director" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="tj">
+		<createTable tableName="actors">
+            <column name="id_actor" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="date_of_birth" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+	<changeSet id="3" author="tj">
+		<createTable tableName="movie_actors">
+            <column name="id_actor" type="bigint">
+                <constraints foreignKeyName="id_actor" nullable="false"/>
+            </column>
+            <column name="id_movie" type="bigint">
+                <constraints foreignKeyName="id_movie" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+</databaseChangeLog>

@@ -1,0 +1,13 @@
+com\blstream\tomaszjarosz\MoviesApplication$1.class
+com\blstream\tomaszjarosz\MoviesConfiguration.class
+com\blstream\tomaszjarosz\MoviesApplication$2.class
+com\blstream\tomaszjarosz\db\ActorDAO.class
+com\blstream\tomaszjarosz\resources\ActorsResource.class
+com\blstream\tomaszjarosz\core\ActorsInMovie.class
+com\blstream\tomaszjarosz\resources\ActorResource.class
+com\blstream\tomaszjarosz\core\Movie.class
+com\blstream\tomaszjarosz\resources\MoviesResource.class
+com\blstream\tomaszjarosz\core\Actor.class
+com\blstream\tomaszjarosz\db\MovieDAO.class
+com\blstream\tomaszjarosz\MoviesApplication.class
+com\blstream\tomaszjarosz\resources\MovieResource.class
