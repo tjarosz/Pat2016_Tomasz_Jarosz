@@ -1,9 +1,9 @@
 # Running The Application
 
 * To package the Application:
-
+```
 mvn package
-
+```
 * To setup the h2 database run:
 ```
 java -jar target/MoviesRestApi-1.0-SNAPSHOT.jar db migrate movies.yml
