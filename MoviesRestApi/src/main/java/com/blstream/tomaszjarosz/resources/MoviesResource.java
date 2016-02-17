@@ -1,6 +1,5 @@
 package com.blstream.tomaszjarosz.resources;
 
-import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.MovieDAO;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -11,7 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Tomek on 2016-02-09.

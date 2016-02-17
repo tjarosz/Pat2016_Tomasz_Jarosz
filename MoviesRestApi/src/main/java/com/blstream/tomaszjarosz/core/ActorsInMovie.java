@@ -22,6 +22,14 @@ public class ActorsInMovie implements Serializable {
             @JoinColumn(name = "id_actor", referencedColumnName = "id_actor")})
     private Actor actor;
 
+    public ActorsInMovie(Actor actor, Movie movie) {
+        this.actor = actor;
+        this.movie = movie;
+    }
+
+    public ActorsInMovie() {
+    }
+
     public Movie getMovie() {
         return movie;
     }
@@ -36,14 +44,6 @@ public class ActorsInMovie implements Serializable {
 
     public void setActor(Actor actor) {
         this.actor = actor;
-    }
-
-    public ActorsInMovie(Actor actor, Movie movie) {
-        this.actor = actor;
-        this.movie = movie;
-    }
-
-    public ActorsInMovie() {
     }
 
 }

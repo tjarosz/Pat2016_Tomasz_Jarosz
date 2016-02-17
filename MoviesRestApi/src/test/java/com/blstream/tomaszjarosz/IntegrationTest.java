@@ -14,7 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,6 +36,14 @@ public class IntegrationTest {
         RULE.getApplication().run("db", "migrate", CONFIG_PATH);
     }
 
+    private static String createTempFile() {
+        try {
+            return File.createTempFile("test-movies", null).getAbsolutePath();
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
     @Before
     public void setUp() throws Exception {
         client = ClientBuilder.newClient();
@@ -45,22 +54,14 @@ public class IntegrationTest {
         client.close();
     }
 
-    private static String createTempFile() {
-        try {
-            return File.createTempFile("test-movies", null).getAbsolutePath();
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
     @Test
     public void testPostMovie() throws Exception {
         final Movie movie = new Movie();
         movie.setTitle("tit1");
         movie.setDirector("tit2");
         List<Actor> actors = new ArrayList<>();
-        actors.add(new Actor("jon","black",null));
-        actors.add(new Actor("tom","white","21/11/1994"));
+        actors.add(new Actor("jon", "black", null));
+        actors.add(new Actor("tom", "white", "21/11/1994"));
         movie.setActors(actors);
         final Movie newMovie = client.target("http://localhost:" + RULE.getLocalPort() + "/movies")
                 .request()

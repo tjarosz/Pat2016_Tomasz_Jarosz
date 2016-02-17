@@ -50,7 +50,7 @@ public class MoviesResourceTest {
         movieWithActors.setDirector("Peter Jackson");
         List<Actor> actors = new ArrayList<>();
         actors.add(new Actor("Orlando", "Bloom", "13/01/1977"));
-        actors.add(new Actor("Liv", "Taylor","01/07/1977"));
+        actors.add(new Actor("Liv", "Taylor", "01/07/1977"));
         movieWithActors.setActors(actors);
     }
 
@@ -89,7 +89,8 @@ public class MoviesResourceTest {
         when(dao.findAll()).thenReturn(movies);
 
         final List<Movie> response = resources.client().target("/movies")
-                .request().get(new GenericType<List<Movie>>() {});
+                .request().get(new GenericType<List<Movie>>() {
+                });
 
         verify(dao).findAll();
         assertThat(response).containsAll(movies);

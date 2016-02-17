@@ -3,7 +3,9 @@ package com.blstream.tomaszjarosz.core;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -28,10 +30,10 @@ public class Movie implements Serializable {
     @Column(name = "director", nullable = false)
     private String director;
 
-    @ManyToMany(fetch=FetchType.EAGER, cascade = {CascadeType.ALL}, targetEntity=Actor.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, targetEntity = Actor.class)
     @JoinTable(name = "movie_actors",
-            joinColumns = { @JoinColumn(name = "id_movie", referencedColumnName = "id_movie") },
-            inverseJoinColumns = { @JoinColumn(name = "id_actor", referencedColumnName = "id_actor") })
+            joinColumns = {@JoinColumn(name = "id_movie", referencedColumnName = "id_movie")},
+            inverseJoinColumns = {@JoinColumn(name = "id_actor", referencedColumnName = "id_actor")})
     private List<Actor> actors = new ArrayList<Actor>();
 
 

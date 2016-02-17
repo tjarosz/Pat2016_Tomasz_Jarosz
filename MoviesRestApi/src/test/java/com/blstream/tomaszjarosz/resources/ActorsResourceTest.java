@@ -23,8 +23,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -70,7 +68,8 @@ public class ActorsResourceTest {
         when(dao.findAll()).thenReturn(actors);
 
         final List<Actor> response = resources.client().target("/actors")
-                .request().get(new GenericType<List<Actor>>() {});
+                .request().get(new GenericType<List<Actor>>() {
+                });
 
         verify(dao).findAll();
         assertThat(response).containsAll(actors);

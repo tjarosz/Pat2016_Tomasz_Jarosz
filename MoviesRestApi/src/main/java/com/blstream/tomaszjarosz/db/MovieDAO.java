@@ -21,6 +21,7 @@ public class MovieDAO extends AbstractDAO<Movie> {
     public Movie create(Movie movie) {
         return persist(movie);
     }
+
     public void delete(Movie movie) {
         currentSession().delete(movie);
     }

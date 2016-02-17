@@ -5,6 +5,7 @@ import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.MovieDAO;
 import com.google.common.base.Optional;
 import io.dropwizard.testing.junit.ResourceTestRule;
+import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -13,18 +14,11 @@ import org.junit.Test;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
-
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 
 public class MovieResourceTest {
@@ -53,7 +47,7 @@ public class MovieResourceTest {
         movie.setDirector("Peter Jackson");
         List<Actor> actors = new ArrayList<>();
         actors.add(new Actor("Orlando", "Bloom", "13/01/1977"));
-        actors.add(new Actor("Liv", "Taylor","01/07/1977"));
+        actors.add(new Actor("Liv", "Taylor", "01/07/1977"));
         movie.setActors(actors);
     }
 
@@ -82,7 +76,7 @@ public class MovieResourceTest {
     }
 
     @Test
-    public void deleteMovie(){
+    public void deleteMovie() {
         when(DAO.findById(1L)).thenReturn(Optional.of(movie));
         final Response response = resources.client().target("/movies/1")
                 .request()
@@ -94,7 +88,7 @@ public class MovieResourceTest {
     }
 
     @Test
-    public void deleteMovieWhenThereIsNoMovie(){
+    public void deleteMovieWhenThereIsNoMovie() {
         when(DAO.findById(1L)).thenReturn(Optional.<Movie>absent());
         final Response response = resources.client().target("/movies/1")
                 .request()
@@ -106,7 +100,7 @@ public class MovieResourceTest {
     }
 
     @Test
-    public void updateMovie(){
+    public void updateMovie() {
         final Response response = resources.client().target("/movies/1")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .put(Entity.entity(movieWithActors, MediaType.APPLICATION_JSON_TYPE));

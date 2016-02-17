@@ -1,7 +1,6 @@
 package com.blstream.tomaszjarosz.resources;
 
 import com.blstream.tomaszjarosz.core.Actor;
-
 import com.blstream.tomaszjarosz.db.ActorDAO;
 import com.google.common.base.Optional;
 import io.dropwizard.testing.junit.ResourceTestRule;
@@ -16,8 +15,6 @@ import javax.ws.rs.core.Response;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class ActorResourceTest {
     private static final ActorDAO DAO = mock(ActorDAO.class);
@@ -60,7 +57,7 @@ public class ActorResourceTest {
     }
 
     @Test
-    public void deleteActor(){
+    public void deleteActor() {
         when(DAO.findById(1L)).thenReturn(Optional.of(actor));
         final Response response = RULE.client().target("/actors/1")
                 .request(MediaType.APPLICATION_JSON_TYPE)
@@ -71,7 +68,7 @@ public class ActorResourceTest {
     }
 
     @Test
-    public void deleteMovieWhenThereIsNoMovie(){
+    public void deleteMovieWhenThereIsNoMovie() {
         when(DAO.findById(1L)).thenReturn(Optional.<Actor>absent());
         final Response response = RULE.client().target("/actors/1")
                 .request(MediaType.APPLICATION_JSON_TYPE)
@@ -82,7 +79,7 @@ public class ActorResourceTest {
     }
 
     @Test
-    public void updateActor(){
+    public void updateActor() {
         final Response response = RULE.client().target("/actors/1")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .put(Entity.entity(actor, MediaType.APPLICATION_JSON_TYPE));

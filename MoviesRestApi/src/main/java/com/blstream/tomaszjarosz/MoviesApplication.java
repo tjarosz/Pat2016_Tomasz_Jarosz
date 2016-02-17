@@ -4,7 +4,10 @@ import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.ActorDAO;
 import com.blstream.tomaszjarosz.db.MovieDAO;
-import com.blstream.tomaszjarosz.resources.*;
+import com.blstream.tomaszjarosz.resources.ActorResource;
+import com.blstream.tomaszjarosz.resources.ActorsResource;
+import com.blstream.tomaszjarosz.resources.MovieResource;
+import com.blstream.tomaszjarosz.resources.MoviesResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -18,10 +21,6 @@ import io.dropwizard.setup.Environment;
 
 
 public class MoviesApplication extends Application<MoviesConfiguration> {
-    public static void main(String[] args) throws Exception {
-        new MoviesApplication().run(args);
-    }
-
     private final HibernateBundle<MoviesConfiguration> hibernate = new HibernateBundle<MoviesConfiguration>(Movie.class, Actor.class) {
 
         public PooledDataSourceFactory getDataSourceFactory(MoviesConfiguration moviesConfiguration) {
@@ -29,6 +28,10 @@ public class MoviesApplication extends Application<MoviesConfiguration> {
         }
 
     };
+
+    public static void main(String[] args) throws Exception {
+        new MoviesApplication().run(args);
+    }
 
     @Override
     public void initialize(Bootstrap<MoviesConfiguration> bootstrap) {
@@ -49,6 +52,7 @@ public class MoviesApplication extends Application<MoviesConfiguration> {
         });
         bootstrap.addBundle(hibernate);
     }
+
     @Override
     public void run(MoviesConfiguration moviesConfiguration, Environment environment) throws Exception {
 

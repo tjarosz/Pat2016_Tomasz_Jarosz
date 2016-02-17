@@ -20,9 +20,11 @@ public class ActorDAO extends AbstractDAO<Actor> {
     public Actor create(Actor actor) {
         return persist(actor);
     }
+
     public void delete(Actor actor) {
         currentSession().delete(actor);
     }
+
     public void update(Actor actor) {
         currentSession().saveOrUpdate(actor);
     }

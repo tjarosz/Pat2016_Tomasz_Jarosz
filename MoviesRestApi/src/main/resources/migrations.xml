@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
@@ -18,7 +18,7 @@
         </createTable>
     </changeSet>
     <changeSet id="2" author="tj">
-		<createTable tableName="actors">
+        <createTable tableName="actors">
             <column name="id_actor" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -26,13 +26,13 @@
                 <constraints nullable="false"/>
             </column>
             <column name="surname" type="varchar(255)">
-				<constraints nullable="false"/>
-			</column>
-			<column name="date_of_birth" type="varchar(255)"/>
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="varchar(255)"/>
         </createTable>
     </changeSet>
-	<changeSet id="3" author="tj">
-		<createTable tableName="movie_actors">
+    <changeSet id="3" author="tj">
+        <createTable tableName="movie_actors">
             <column name="id_actor" type="bigint">
                 <constraints foreignKeyName="id_actor" nullable="false"/>
             </column>
@@ -41,5 +41,5 @@
             </column>
         </createTable>
     </changeSet>
-    
+
 </databaseChangeLog>

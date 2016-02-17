@@ -1,9 +1,7 @@
 package com.blstream.tomaszjarosz.resources;
 
 import com.blstream.tomaszjarosz.core.Actor;
-import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.ActorDAO;
-import com.blstream.tomaszjarosz.db.MovieDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.GET;
