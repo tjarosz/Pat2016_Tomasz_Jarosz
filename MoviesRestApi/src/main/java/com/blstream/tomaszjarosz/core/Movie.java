@@ -93,10 +93,4 @@ public class Movie implements Serializable {
                 Objects.equals(this.title, that.title) &&
                 Objects.equals(this.director, that.director);
     }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, title, director);
-//    }
-
 }

@@ -21,7 +21,6 @@ public class ActorResourceTest {
     @ClassRule
     public static final ResourceTestRule RULE = ResourceTestRule.builder()
             .addResource(new ActorResource(DAO))
-            //.setTestContainerFactory(new GrizzlyWebTestContainerFactory())
             .build();
     private Actor actor;
 
