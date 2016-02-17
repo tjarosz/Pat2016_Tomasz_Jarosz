@@ -1,6 +1,8 @@
 package com.blstream.tomaszjarosz.core;
 
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -92,5 +94,14 @@ public class Movie implements Serializable {
         return Objects.equals(this.id, that.id) &&
                 Objects.equals(this.title, that.title) &&
                 Objects.equals(this.director, that.director);
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31).
+                append(id).
+                append(title).
+                append(director).
+                toHashCode();
     }
 }

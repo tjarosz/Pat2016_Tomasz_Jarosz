@@ -1,6 +1,8 @@
 package com.blstream.tomaszjarosz.core;
 
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -84,5 +86,15 @@ public class Actor implements Serializable {
                 Objects.equals(this.name, that.name) &&
                 Objects.equals(this.surname, that.surname) &&
                 Objects.equals(this.dateOfBirth, that.dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31).
+                append(id).
+                append(name).
+                append(surname).
+                append(dateOfBirth).
+                toHashCode();
     }
 }
