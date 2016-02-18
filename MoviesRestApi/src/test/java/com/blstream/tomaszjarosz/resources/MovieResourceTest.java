@@ -1,5 +1,6 @@
 package com.blstream.tomaszjarosz.resources;
 
+import com.blstream.tomaszjarosz.api.MovieRepresentation;
 import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.MovieDAO;
@@ -36,6 +37,7 @@ public class MovieResourceTest {
 
     private Movie movie;
     private Movie movieWithActors;
+    private MovieRepresentation movieRepresentation;
 
     @Before
     public void setup() {
@@ -49,6 +51,8 @@ public class MovieResourceTest {
         actors.add(new Actor("Orlando", "Bloom", "13/01/1977"));
         actors.add(new Actor("Liv", "Taylor", "01/07/1977"));
         movie.setActors(actors);
+
+        movieRepresentation = new MovieRepresentation("title", "director", null);
     }
 
     @After
@@ -57,7 +61,7 @@ public class MovieResourceTest {
     }
 
     @Test
-    public void getmovieSuccess() {
+    public void getMovieSuccess() {
         when(DAO.findById(1L)).thenReturn(Optional.of(movie));
 
         Movie found = RULE.getJerseyTest().target("/movies/1").request().get(Movie.class);
@@ -67,7 +71,7 @@ public class MovieResourceTest {
     }
 
     @Test
-    public void getmovieNotFound() {
+    public void getMovieNotFound() {
         when(DAO.findById(2L)).thenReturn(Optional.<Movie>absent());
         final Response response = RULE.getJerseyTest().target("/movies/2").request().get();
 
@@ -103,7 +107,7 @@ public class MovieResourceTest {
     public void updateMovie() {
         final Response response = resources.client().target("/movies/1")
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .put(Entity.entity(movieWithActors, MediaType.APPLICATION_JSON_TYPE));
+                .put(Entity.entity(movieRepresentation, MediaType.APPLICATION_JSON_TYPE));
 
         assertThat(response.getStatusInfo().getStatusCode()).isEqualTo(Response.Status.OK.getStatusCode());
         verify(DAO).update(any(Movie.class));

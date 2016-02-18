@@ -1,5 +1,6 @@
 package com.blstream.tomaszjarosz.resources;
 
+import com.blstream.tomaszjarosz.api.MovieRepresentation;
 import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.MovieDAO;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -11,9 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-/**
- * Created by Tomek on 2016-02-09.
- */
 @Path("/movies")
 @Produces(MediaType.APPLICATION_JSON)
 public class MoviesResource {
@@ -25,7 +23,10 @@ public class MoviesResource {
 
     @POST
     @UnitOfWork
-    public Movie createMovie(Movie movie) {
+    public Movie createMovie(MovieRepresentation movieRepresentation) {
+        Movie movie = new Movie(movieRepresentation.getTitle(),
+                movieRepresentation.getDirector(),
+                movieRepresentation.getActors());
         return moviesDAO.create(movie);
     }
 

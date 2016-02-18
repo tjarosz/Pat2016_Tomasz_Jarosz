@@ -1,5 +1,6 @@
 package com.blstream.tomaszjarosz.resources;
 
+import com.blstream.tomaszjarosz.api.ActorRepresentation;
 import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.db.ActorDAO;
 import com.google.common.base.Optional;
@@ -23,11 +24,13 @@ public class ActorResourceTest {
             .addResource(new ActorResource(DAO))
             .build();
     private Actor actor;
+    private ActorRepresentation actorRepresentation;
 
     @Before
     public void setup() {
         actor = new Actor();
         actor.setId(1L);
+        actorRepresentation = new ActorRepresentation("Name", "Surname", null);
     }
 
     @After
@@ -81,7 +84,7 @@ public class ActorResourceTest {
     public void updateActor() {
         final Response response = RULE.client().target("/actors/1")
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .put(Entity.entity(actor, MediaType.APPLICATION_JSON_TYPE));
+                .put(Entity.entity(actorRepresentation, MediaType.APPLICATION_JSON_TYPE));
 
         assertThat(response.getStatusInfo().getStatusCode()).isEqualTo(Response.Status.OK.getStatusCode());
         verify(DAO).update(any(Actor.class));

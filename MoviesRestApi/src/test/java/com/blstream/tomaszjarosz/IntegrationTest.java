@@ -1,5 +1,7 @@
 package com.blstream.tomaszjarosz;
 
+import com.blstream.tomaszjarosz.api.ActorRepresentation;
+import com.blstream.tomaszjarosz.api.MovieRepresentation;
 import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.core.Movie;
 import io.dropwizard.testing.ConfigOverride;
@@ -56,13 +58,11 @@ public class IntegrationTest {
 
     @Test
     public void testPostMovie() throws Exception {
-        final Movie movie = new Movie();
-        movie.setTitle("tit1");
-        movie.setDirector("tit2");
         List<Actor> actors = new ArrayList<>();
         actors.add(new Actor("jon", "black", null));
         actors.add(new Actor("tom", "white", "21/11/1994"));
-        movie.setActors(actors);
+        final MovieRepresentation movie
+                = new MovieRepresentation("tit1", "tit2", actors);
         final Movie newMovie = client.target("http://localhost:" + RULE.getLocalPort() + "/movies")
                 .request()
                 .post(Entity.entity(movie, MediaType.APPLICATION_JSON_TYPE))
@@ -76,9 +76,8 @@ public class IntegrationTest {
 
     @Test
     public void testDeleteMovie() throws Exception {
-        final Movie movie = new Movie();
-        movie.setTitle("tit1");
-        movie.setDirector("tit2");
+        final MovieRepresentation movie
+                = new MovieRepresentation("tit1", "tit2", null);
         final Movie newMovie = client.target("http://localhost:" + RULE.getLocalPort() + "/movies")
                 .request()
                 .post(Entity.entity(movie, MediaType.APPLICATION_JSON_TYPE))
@@ -92,12 +91,13 @@ public class IntegrationTest {
 
     @Test
     public void testUpdateMovie() throws Exception {
-        final Movie movieToUpdate = new Movie();
-
-        movieToUpdate.setTitle("changedTit");
-        movieToUpdate.setDirector("changedDir");
+        final Movie movie = new Movie();
+        movie.setTitle("tit1");
+        movie.setDirector("dir2");
+        final MovieRepresentation movieToUpdate
+                = new MovieRepresentation("changedName", "changedSurname", null);
         final Movie updatedMovie = client.target("http://localhost:" + RULE.getLocalPort()
-                + "/movies/" + Long.toString(movieToUpdate.getId()))
+                + "/movies/" + Long.toString(movie.getId()))
                 .request()
                 .put(Entity.entity(movieToUpdate, MediaType.APPLICATION_JSON_TYPE))
                 .readEntity(Movie.class);
@@ -110,11 +110,8 @@ public class IntegrationTest {
 
     @Test
     public void testPostActor() throws Exception {
-        final Actor actor = new Actor();
-        actor.setName("name1");
-        actor.setSurname("surname1");
-        actor.setDateOfBirth("21/11/1992");
-
+        final ActorRepresentation actor
+                = new ActorRepresentation("name1", "surname1", "21/11/1992");
         final Actor newActor = client.target("http://localhost:" + RULE.getLocalPort() + "/actors")
                 .request()
                 .post(Entity.entity(actor, MediaType.APPLICATION_JSON_TYPE))
@@ -127,9 +124,8 @@ public class IntegrationTest {
 
     @Test
     public void testDeleteActor() throws Exception {
-        final Actor actor = new Actor();
-        actor.setName("name1");
-        actor.setSurname("surname1");
+        final ActorRepresentation actor
+                = new ActorRepresentation("name1", "surname1", null);
         final Actor newActor = client.target("http://localhost:" + RULE.getLocalPort() + "/actors")
                 .request()
                 .post(Entity.entity(actor, MediaType.APPLICATION_JSON_TYPE))
@@ -143,12 +139,13 @@ public class IntegrationTest {
 
     @Test
     public void testUpdateActor() throws Exception {
-        final Actor actorToUpdate = new Actor();
-
-        actorToUpdate.setName("changedName");
-        actorToUpdate.setSurname("changedSurname");
+        final Actor actor = new Actor();
+        actor.setName("name1");
+        actor.setSurname("surname1");
+        final ActorRepresentation actorToUpdate
+                = new ActorRepresentation("changedName", "changedSurname", null);
         final Actor updatedActor = client.target("http://localhost:" + RULE.getLocalPort()
-                + "/actors/" + Long.toString(actorToUpdate.getId()))
+                + "/actors/" + Long.toString(actor.getId()))
                 .request()
                 .put(Entity.entity(actorToUpdate, MediaType.APPLICATION_JSON_TYPE))
                 .readEntity(Actor.class);

@@ -1,5 +1,6 @@
 package com.blstream.tomaszjarosz.resources;
 
+import com.blstream.tomaszjarosz.api.ActorRepresentation;
 import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.db.ActorDAO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,7 +36,7 @@ public class ActorsResourceTest {
     @Captor
     private ArgumentCaptor<Actor> actorCaptor;
     private Actor actor;
-
+    private ActorRepresentation actorRepresentation;
 
     @Before
     public void setUp() {
@@ -43,6 +44,7 @@ public class ActorsResourceTest {
         actor.setName("name");
         actor.setSurname("surname");
         actor.setDateOfBirth("12/11/1990");
+        actorRepresentation = new ActorRepresentation("name", "surname", "12/11/1990");
     }
 
     @After
@@ -55,7 +57,7 @@ public class ActorsResourceTest {
         when(dao.create(any(Actor.class))).thenReturn(actor);
         final Response response = resources.client().target("/actors")
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .post(Entity.entity(actor, MediaType.APPLICATION_JSON_TYPE));
+                .post(Entity.entity(actorRepresentation, MediaType.APPLICATION_JSON_TYPE));
 
         assertThat(response.getStatusInfo()).isEqualTo(Response.Status.OK);
         verify(dao).create(actorCaptor.capture());

@@ -1,5 +1,6 @@
 package com.blstream.tomaszjarosz.resources;
 
+import com.blstream.tomaszjarosz.api.ActorRepresentation;
 import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.db.ActorDAO;
 import com.google.common.base.Optional;
@@ -34,8 +35,11 @@ public class ActorResource {
 
     @PUT
     @UnitOfWork
-    public Actor updateActor(@PathParam("actorId") Long actorId, @Valid Actor actor) {
-        //Movie movieToUpdate = findSafely(movieId.get());
+    public Actor updateActor(@PathParam("actorId") Long actorId,
+                             @Valid ActorRepresentation actorRepresentation) {
+        Actor actor = new Actor(actorRepresentation.getName(),
+                actorRepresentation.getSurname(),
+                actorRepresentation.getDateOfBirth());
         actor.setId(actorId);
         actorDAO.update(actor);
         return actor;

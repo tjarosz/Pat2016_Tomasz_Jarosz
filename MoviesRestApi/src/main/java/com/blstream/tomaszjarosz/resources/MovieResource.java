@@ -1,5 +1,6 @@
 package com.blstream.tomaszjarosz.resources;
 
+import com.blstream.tomaszjarosz.api.MovieRepresentation;
 import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.MovieDAO;
 import com.google.common.base.Optional;
@@ -10,9 +11,6 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-/**
- * Created by Tomek on 2016-02-09.
- */
 @Path("/movies/{movieId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class MovieResource {
@@ -36,8 +34,11 @@ public class MovieResource {
 
     @PUT
     @UnitOfWork
-    public Movie updateMovie(@PathParam("movieId") Long movieId, @Valid Movie movie) {
-        //Movie movieToUpdate = findSafely(movieId.get());
+    public Movie updateMovie(@PathParam("movieId") Long movieId,
+                             @Valid MovieRepresentation movieRepresentation) {
+        Movie movie = new Movie(movieRepresentation.getTitle(),
+                movieRepresentation.getDirector(),
+                movieRepresentation.getActors());
         movie.setId(movieId);
         moviesDAO.update(movie);
         return movie;

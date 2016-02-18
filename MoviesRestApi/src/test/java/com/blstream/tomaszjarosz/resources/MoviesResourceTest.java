@@ -1,6 +1,7 @@
 package com.blstream.tomaszjarosz.resources;
 
 
+import com.blstream.tomaszjarosz.api.MovieRepresentation;
 import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.MovieDAO;
@@ -38,6 +39,8 @@ public class MoviesResourceTest {
     private ArgumentCaptor<Movie> movieCaptor;
     private Movie movie;
     private Movie movieWithActors;
+    private MovieRepresentation movieRepresentation;
+    private MovieRepresentation movieRepresentationWithActors;
 
     @Before
     public void setUp() {
@@ -52,6 +55,10 @@ public class MoviesResourceTest {
         actors.add(new Actor("Orlando", "Bloom", "13/01/1977"));
         actors.add(new Actor("Liv", "Taylor", "01/07/1977"));
         movieWithActors.setActors(actors);
+
+        movieRepresentation = new MovieRepresentation("title", "director", null);
+        movieRepresentationWithActors
+                = new MovieRepresentation("The Lord of the Rings", "Peter Jackson", actors);
     }
 
     @After
@@ -64,7 +71,7 @@ public class MoviesResourceTest {
         when(dao.create(any(Movie.class))).thenReturn(movie);
         final Response response = resources.client().target("/movies")
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .post(Entity.entity(movie, MediaType.APPLICATION_JSON_TYPE));
+                .post(Entity.entity(movieRepresentation, MediaType.APPLICATION_JSON_TYPE));
 
         assertThat(response.getStatusInfo()).isEqualTo(Response.Status.OK);
         verify(dao).create(movieCaptor.capture());
@@ -76,7 +83,7 @@ public class MoviesResourceTest {
         when(dao.create(any(Movie.class))).thenReturn(movieWithActors);
         final Response response = resources.client().target("/movies")
                 .request(MediaType.APPLICATION_JSON_TYPE)
-                .post(Entity.entity(movieWithActors, MediaType.APPLICATION_JSON_TYPE));
+                .post(Entity.entity(movieRepresentationWithActors, MediaType.APPLICATION_JSON_TYPE));
 
         assertThat(response.getStatusInfo()).isEqualTo(Response.Status.OK);
         verify(dao).create(movieCaptor.capture());
@@ -94,6 +101,5 @@ public class MoviesResourceTest {
 
         verify(dao).findAll();
         assertThat(response).containsAll(movies);
-        assertThat(1);
     }
 }

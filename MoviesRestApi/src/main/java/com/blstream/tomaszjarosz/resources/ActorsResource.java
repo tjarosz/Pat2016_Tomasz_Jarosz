@@ -1,5 +1,6 @@
 package com.blstream.tomaszjarosz.resources;
 
+import com.blstream.tomaszjarosz.api.ActorRepresentation;
 import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.db.ActorDAO;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -23,7 +24,10 @@ public class ActorsResource {
 
     @POST
     @UnitOfWork
-    public Actor createActor(Actor actor) {
+    public Actor createActor(ActorRepresentation actorRepresentation) {
+        Actor actor = new Actor(actorRepresentation.getName(),
+                actorRepresentation.getSurname(),
+                actorRepresentation.getDateOfBirth());
         return actorDAO.create(actor);
     }
 
