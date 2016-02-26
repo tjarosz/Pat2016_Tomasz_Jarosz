@@ -58,7 +58,7 @@ public class MoviesResourceTest {
 
         movieRepresentation = new MovieRepresentation("title", "director", null);
         movieRepresentationWithActors
-                = new MovieRepresentation("The Lord of the Rings", "Peter Jackson", actors);
+                = new MovieRepresentation("The Lord of the Rings", "Peter Jackson", String.valueOf(actors));
     }
 
     @After

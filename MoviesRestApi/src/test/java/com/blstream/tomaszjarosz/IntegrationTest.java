@@ -62,7 +62,7 @@ public class IntegrationTest {
         actors.add(new Actor("jon", "black", null));
         actors.add(new Actor("tom", "white", "21/11/1994"));
         final MovieRepresentation movie
-                = new MovieRepresentation("tit1", "tit2", actors);
+                = new MovieRepresentation("tit1", "tit2", String.valueOf(actors));
         final Movie newMovie = client.target("http://localhost:" + RULE.getLocalPort() + "/movies")
                 .request()
                 .post(Entity.entity(movie, MediaType.APPLICATION_JSON_TYPE))
@@ -70,8 +70,8 @@ public class IntegrationTest {
         assertThat(newMovie.getId()).isNotNull();
         assertThat(newMovie.getTitle()).isEqualTo(movie.getTitle());
         assertThat(newMovie.getDirector()).isEqualTo(movie.getDirector());
-        assertThat(newMovie.getActors().get(0).getName()).isEqualTo(movie.getActors().get(0).getName());
-        assertThat(newMovie.getActors().get(1).getName()).isEqualTo(movie.getActors().get(1).getName());
+        assertThat(newMovie.getActors().get(0).getName()).isEqualTo(movie.getActorsList().get(0).getName());
+        assertThat(newMovie.getActors().get(1).getName()).isEqualTo(movie.getActorsList().get(1).getName());
     }
 
     @Test

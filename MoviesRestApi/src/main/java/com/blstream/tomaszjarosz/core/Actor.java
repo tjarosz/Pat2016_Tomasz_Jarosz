@@ -98,4 +98,9 @@ public class Actor implements Serializable {
                 append(dateOfBirth).
                 toHashCode();
     }
+
+    @Override
+    public String toString() {
+        return name + " " + surname;
+    }
 }

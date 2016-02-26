@@ -4,12 +4,10 @@ import com.blstream.tomaszjarosz.core.Actor;
 import com.blstream.tomaszjarosz.core.Movie;
 import com.blstream.tomaszjarosz.db.ActorDAO;
 import com.blstream.tomaszjarosz.db.MovieDAO;
-import com.blstream.tomaszjarosz.resources.ActorResource;
-import com.blstream.tomaszjarosz.resources.ActorsResource;
-import com.blstream.tomaszjarosz.resources.MovieResource;
-import com.blstream.tomaszjarosz.resources.MoviesResource;
+import com.blstream.tomaszjarosz.resources.*;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
@@ -18,6 +16,9 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
+
+import javax.ws.rs.client.Client;
 
 
 public class MoviesApplication extends Application<MoviesConfiguration> {
@@ -26,7 +27,10 @@ public class MoviesApplication extends Application<MoviesConfiguration> {
         public PooledDataSourceFactory getDataSourceFactory(MoviesConfiguration moviesConfiguration) {
             return moviesConfiguration.getDataSourceFactory();
         }
+    };
 
+    private final MoviesBundle<MoviesConfiguration> moviesBundle
+            = new MoviesBundle<MoviesConfiguration>() {
     };
 
     public static void main(String[] args) throws Exception {
@@ -42,7 +46,6 @@ public class MoviesApplication extends Application<MoviesConfiguration> {
                 )
         );
 
-
         bootstrap.addBundle(new AssetsBundle());
         bootstrap.addBundle(new MigrationsBundle<MoviesConfiguration>() {
 
@@ -51,16 +54,21 @@ public class MoviesApplication extends Application<MoviesConfiguration> {
             }
         });
         bootstrap.addBundle(hibernate);
+        bootstrap.addBundle(moviesBundle);
+        bootstrap.addBundle(new ViewBundle());
     }
 
     @Override
     public void run(MoviesConfiguration moviesConfiguration, Environment environment) throws Exception {
-
+        final Client client = new JerseyClientBuilder(environment)
+                .using(moviesConfiguration.getJerseyClientConfiguration())
+                .build(getName());
         final MovieDAO movieDAO = new MovieDAO(hibernate.getSessionFactory());
         final ActorDAO actorDAO = new ActorDAO(hibernate.getSessionFactory());
-        environment.jersey().register(new MoviesResource(movieDAO));
+        environment.jersey().register(new MoviesResource(movieDAO, client));
         environment.jersey().register(new MovieResource(movieDAO));
         environment.jersey().register(new ActorsResource(actorDAO));
         environment.jersey().register(new ActorResource(actorDAO));
+        environment.jersey().register(new MoviesViewResource(movieDAO));
     }
 }

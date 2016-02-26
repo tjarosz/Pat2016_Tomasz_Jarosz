@@ -18,6 +18,10 @@ public class MovieDAO extends AbstractDAO<Movie> {
         return Optional.fromNullable(get(id));
     }
 
+    public List<Movie> findByTitle(String title) {
+        return list(namedQuery("com.blstream.tomaszjarosz.core.Movie.findByTitle").setString("title", title));
+    }
+
     public Movie create(Movie movie) {
         return persist(movie);
     }

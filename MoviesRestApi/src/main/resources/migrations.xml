@@ -14,7 +14,25 @@
             <column name="title" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="year" type="int"/>
+            <column name="rated" type="varchar(10)"/>
+            <column name="released" type="varchar(255)"/>
+            <column name="runtime" type="varchar(255)"/>
+            <column name="genre" type="varchar(255)"/>
             <column name="director" type="varchar(255)"/>
+            <column name="writer" type="varchar(255)"/>
+            <column name="actors" type="text"/>
+            <column name="plot" type="text"/>
+            <column name="language" type="varchar(255)"/>
+            <column name="country" type="varchar(255)"/>
+            <column name="awards" type="varchar(255)"/>
+            <column name="poster" type="text"/>
+            <column name="metascore" type="varchar(255)"/>
+            <column name="imdbRating" type="float"/>
+            <column name="imdbVotes" type="varchar(255)"/>
+            <column name="imdbID" type="varchar(255)"/>
+            <column name="type" type="varchar(255)"/>
+            <column name="response" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet id="2" author="tj">

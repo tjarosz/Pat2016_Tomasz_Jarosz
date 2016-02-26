@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/movies/{movieId}")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class MovieResource {
     private final MovieDAO moviesDAO;
 
@@ -37,8 +38,13 @@ public class MovieResource {
     public Movie updateMovie(@PathParam("movieId") Long movieId,
                              @Valid MovieRepresentation movieRepresentation) {
         Movie movie = new Movie(movieRepresentation.getTitle(),
-                movieRepresentation.getDirector(),
-                movieRepresentation.getActors());
+                movieRepresentation.getDirector(), movieRepresentation.getActorsList(),
+                movieRepresentation.getYear(), movieRepresentation.getRated(), movieRepresentation.getReleased(),
+                movieRepresentation.getRuntime(), movieRepresentation.getGenre(), movieRepresentation.getWriter(),
+                movieRepresentation.getPlot(), movieRepresentation.getLanguage(), movieRepresentation.getCountry(),
+                movieRepresentation.getAwards(), movieRepresentation.getPoster(), movieRepresentation.getMetascore(),
+                movieRepresentation.getImdbRating(), movieRepresentation.getImdbVotes(), movieRepresentation.getImdbID(),
+                movieRepresentation.getType(), movieRepresentation.getResponse());
         movie.setId(movieId);
         moviesDAO.update(movie);
         return movie;
